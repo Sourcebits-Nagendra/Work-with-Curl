@@ -7,12 +7,42 @@
     curl = {
         paths: {
             jquery: 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min',
-            stuff: 'stuff'
+            stuff: 'en/stuff'
         }
     };
     
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/curl/0.7.3/curl-for-jQuery/curl.js"></script>
+    <script type="text/javascript">
+
+    curl(
+        // fetch all of these resources ("dependencies")
+        [
+            'stuff'
+        ]
+    )
+    // when they are loaded
+    .then(
+        // execute this callback, passing all dependencies as params
+        function (three, link, strings, template) {
+            var body = document.body;
+            if (body) {
+                body.appendChild(document.createTextNode('three == ' + three.toString() + ' '));
+                body.appendChild(document.createElement('br'));
+                body.appendChild(document.createTextNode(strings.hello));
+                body.appendChild(document.createElement('div')).innerHTML = template;
+            }
+        },
+        // execute this callback if there was a problem
+        function (ex) {
+            var msg = 'OH SNAP: ' + ex.message;
+            alert(msg);
+        }
+    );
+
+</script>
+    
+    
   </head>
   <body>
     <div></div>
